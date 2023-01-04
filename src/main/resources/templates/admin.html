@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header"/>
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+    <h4>Administrator</h4>
+
+</head>
+<table border="1">
+    <tr>
+        <th>Email</th>
+        <th>Number</th>
+        <th>Activity</th>
+        <th>Roles</th>
+
+        <th>Baned</th>
+        <th>Edit</th>
+        <th>Details</th>
+    </tr>
+        <span th:each="user: ${users}">
+            <tr>
+            <th th:text="|${user.email}|"></th>
+            <th th:text="|${user.number}|"></th>
+            <th th:text="|${user.active}|"></th>
+            <th><span th:each="role : ${user.roles}"><span th:text="|${role}|"></span></span></th>
+
+            <th>
+                <form th:action="@{/admin/user/ban/{id}(id=${user.id})}" th:method="post">
+                  <input type="submit" value="Ban">
+              </form>
+            </th>
+            <th><a th:href="@{/admin/user/edit/{id}(id=${user.id})}">Edit</a></th>
+            <th><a th:href="@{/user/{id}(id=${user.id})}">Details</a></th>
+        </span>
+            </tr>
+</table>
+<body>
+
+<br/>
+
+
+<a th:href="@{/add}">Add new product</a><br/>
+</body>
+</html>
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header"></div>
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</head>
+<body>
+<form method="get" action="/">
+    <input type="text" name="filter" th:value="${filter}"/>
+    <button type="submit">Найти</button>
+</form>
+<div>
+    <input type="hidden"/>
+    <span th:each="product: ${products}" >
+        <a th:href="@{/product/{id}(id=${product.id})}" style="text-decoration:none; color:black;">
+            <span th:text="|${product.id} ${product.name} ${product.description} ${product.price}|"></span></a>
+        <td><button><a th:href="@{/edit/{id}(id=${product.id})}" style="text-decoration:none">Edit</a></button></td>
+        <br>
+    </span>
+</div>
+<br/>
+
+
+<a th:href="@{/add}">Add new product</a><br/>
+</body>
+</html>
+

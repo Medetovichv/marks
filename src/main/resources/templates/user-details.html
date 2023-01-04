@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><head>
+    <div th:replace="fragments/header"></div>
+    <br>
+    <title>${username}</title>
+</head>
+<body>
+<h3>Id: <span th:text="${user.id}"></span></h3>
+<h3>Name: <span th:text="${user.username}"></span></h3>
+Email: <span th:if="${#strings.isEmpty(user.email) == false}" th:text="${user.email}"></span>
+<br>
+Phone number: <span th:if="${#strings.isEmpty(user.number) == false}" th:text="${user.number}"></span>
+<br>
+<h4>Products of <span th:text="${user.username}"></span></h4>
+<div>
+    <span th:each="product: ${products}" >
+        <a th:href="@{/product/{id}(id=${product.id})}" style="text-decoration:none; color:black;">
+            <h3>Id:  <span th:text="|${product.id}|"></span></h3>
+            <h3>Name: <span th:text="|${product.name}|"></span></h3>
+            <h3>Price: <span th:text="|${product.price}|"></span></h3>
+        </a>
+        <br>
+    </span>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><head>
+    <div th:replace="fragments/header"/>
+    <br>
+    <title>${product}</title>
+</head>
+<body>
+<h3>Id: <span th:text="${product.id}"></span></h3>
+<h2><span th:text="${product.name}"></span></h2>
+<br>
+<h4>Description: <span th:text="${product.description}"></span></h4>
+<h3>Price: <span th:text="${product.price}"></span></h3>
+<!--<span th:if="${#strings.isEmpty(user.email) == false}" th:text="${user.email}"></span>-->
+
+<h5>Author: <a th:href="@{/user/{user}(user=${product.author.id})}"><span th:text="${product.author.username}"></span></a></h5>
+<td><a th:href="@{/edit/{id}(id=${product.id})}">Edit</a></td>
+<td><a th:href="@{/delete/{id}(id=${product.id})}">Delete</a></td>
+
+</body>
+</html>
