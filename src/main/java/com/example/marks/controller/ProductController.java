@@ -22,13 +22,6 @@ public class ProductController {
 
 
     private Iterable<Product> products = new ArrayList<>(
-//            List.of(
-//                    new Product(1L,  "Iron", "Samsung",20, new Product().getAuthorName()),
-//                    new Product(2L, "Waschmaschine", "Siemens", 340),
-//                    new Product(3L, "Iphone 13 Pro", "Maxwell", 690),
-//                    new Product(4L, "MacBook Air 2018", "15d, 256Gb", 750),
-//                    new Product(5L, "Lord Of Rings", "2017, BookMarket", 15)
-//                    )
     );
     @GetMapping("/")
     public String main(Model model,
