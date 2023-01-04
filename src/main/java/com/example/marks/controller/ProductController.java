@@ -1,10 +1,8 @@
 package com.example.marks.controller;
 
 import com.example.marks.model.Product;
-import com.example.marks.model.Role;
 import com.example.marks.model.User;
 import com.example.marks.repository.ProductRepository;
-import com.example.marks.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class ProductController {
@@ -63,7 +60,7 @@ public class ProductController {
                           Model model){
 
         Product product = productRepository.findById(id).get();
-        if(!user.isUser(user.getRoles(), product.getAuthor().getRoles()))
+        if(!user.isUser(user.getRoles(), product.getAuthor().getRoles()) || !user.isAdmin())
             return "redirect:/";
         model.addAttribute("product", product);
         return "edit-product";
