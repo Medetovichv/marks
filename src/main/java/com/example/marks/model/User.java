@@ -1,18 +1,18 @@
 package com.example.marks.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.*;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "usr")
@@ -25,12 +25,13 @@ public class User implements UserDetails {
     private String username;
 //    @Column(name ="email", unique = true)
 //    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email should be valid")
     private String email;
 
     private String number;
     private String password;
     private boolean active;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
     private List<Product> products = new ArrayList<>();
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -46,19 +47,6 @@ public class User implements UserDetails {
             Set<Role> b
             ){
         return a.containsAll(b);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return active == user.active && Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(number, user.number) && Objects.equals(password, user.password) && Objects.equals(products, user.products) && Objects.equals(roles, user.roles);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, email, number, password, active, products, roles);
     }
 
     @Override
@@ -84,5 +72,18 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

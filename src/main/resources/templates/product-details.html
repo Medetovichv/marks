@@ -14,7 +14,11 @@
 
 <h5>Author: <a th:href="@{/user/{user}(user=${product.author.id})}"><span th:text="${product.author.username}"></span></a></h5>
 <td><a th:href="@{/edit/{id}(id=${product.id})}">Edit</a></td>
-<td><a th:href="@{/delete/{id}(id=${product.id})}">Delete</a></td>
+<td><a th:href="@{/product/delete/{id}(id=${product.id})}">Delete</a></td>
+<!--<form th:action="@{/DeleteCustomer}" th:object="${CustomersDelete}" method="post">-->
+<!--    <input type="submit" name="btnInsert" class="btn btn-primary" value="Delete" />-->
+<!--    <input type="hidden" th:field="*{id}" value="${customer.id}"/>-->
+<!--</form>-->
 
 </body>
 </html>
